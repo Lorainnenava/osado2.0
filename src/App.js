@@ -1,23 +1,51 @@
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Menu from './components/Menu'
+import Cuentas from './components/Cuentas'
+import Documento from './components/Documento'
+import MoviCuenta from './components/MoviCuenta'
+import MoviGene from './components/MoviGene'
+import {useState} from 'react'
 
 function App() {
+  const [arrayCuentas, setArrayCuentas] = useState([]); //ARRAY REGISTRO
+  const [arrayIngreso, setArrayIngreso] = useState([]); //ARRAY DONDE SE VA A VER TODO
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <BrowserRouter>
+        <Menu />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Cuentas
+                arrayIngreso={arrayIngreso}
+                arrayCuentas={arrayCuentas}
+                setArrayCuentas={setArrayCuentas}
+              />
+            }
+          />
+          <Route
+            path="/Documento"
+            element={
+              <Documento
+                arrayCuentas={arrayCuentas}
+                arrayIngreso={arrayIngreso}
+                setArrayIngreso={setArrayIngreso}
+              />
+            }
+          />
+          <Route
+            path="/MoviCuenta"
+            element={<MoviCuenta arrayIngreso={arrayIngreso} />}
+          />
+          <Route
+            path="/MoviGene"
+            element={<MoviGene arrayIngreso={arrayIngreso} />}
+          />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  background-color: rgb(212, 217, 233);
+  height: 100vh;
 }
 
 .App-logo {
@@ -7,6 +9,231 @@
   pointer-events: none;
 }
 
+/*----------------------ESTILOS CREACION DE CUENTAS-----------------------------*/
+
+.container1{
+  width: 80%;
+  background-color: white;
+  margin: auto;
+  border-radius: 20px;
+  margin-top: 30px;
+}
+.tituloRegistro{
+  padding-bottom:10px;
+}
+form.registro{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.labelRegistro{
+  margin-left: 40px;
+  margin-bottom: 20px;
+}
+.btnRegistro{
+  margin-left: 40px;
+  margin-bottom: 20px;
+  background-color: #379f7a;
+  border:none;
+  width: 150px;
+  height: 25px;
+  border-radius: 20px;
+  box-shadow: 0px 5px 10px 0px;
+}
+.btnRegistro:hover{
+  background-color:#38c958;
+}
+.btnBalance{
+  background-color:#379f7a;
+  border: none;
+  margin-bottom: 20px;
+  width: 150px;
+  height: 25px;
+  border-radius: 20px;
+  box-shadow: 0px 5px 10px 0px;
+}
+input{
+  margin-left: 10px;
+  border:none;
+  border-radius: 8px;
+  height: 30px;
+  width: 220px;
+  text-align: center;
+  background-color: rgb(212, 217, 233);
+}
+input:focus{
+  box-shadow: 0px 5px 10px 0px;
+}
+/*----------------------TABLA BALANCE-----------------------------*/
+.tablaBalance{
+  width: 80%;
+  height: auto;
+  background-color: white;
+  margin: auto;
+  margin-top: 20px;
+  border-radius: 15px;
+}
+
+table.balance{
+  padding-bottom: 20px;
+}
+table{
+  margin: auto;
+}
+
+th{
+  background-color:#379f7a;
+  width:auto;
+  padding: 5px;
+}
+
+td{
+  border: 1px solid black;
+}
+
+td.totales{
+  background-color:#379f7a;
+}
+
+/*----------------------TERMINAN ESTILOS CREACION DE CUENTAS-----------------------------*/
+
+/*----------------------ESTILOS DOCUMENTO-----------------------------*/
+.Container2{
+    width: 80%;
+    height: 35%;
+    margin: auto;
+    background-color: white;
+    margin-bottom: 20px;
+    border-radius: 15px;
+}
+.Documento{
+  width: 100%;
+  height: 100%;
+
+}
+.documento1{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+.documento2{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+.documento3{
+    width: 100%;
+    display: flex;
+    align-items:center;
+    margin-bottom: 20px;
+    justify-content: space-around;
+}
+.btnDocumento{
+    background-color: #379f7a;
+    border: none;
+    margin-bottom: 10px;
+    width: 150px;
+    height: 30px;
+    border-radius: 20px;
+    margin-top: 10px;
+    box-shadow: 0px 5px 10px 0px;
+}
+.btnDocumento:hover{
+  background-color:#38c958;
+}
+/*----------------------TABLA DOCUMENTO-----------------------------*/
+.tablaDocumento{
+  width: 80%;
+  height: auto;
+  background-color: white;
+  margin: auto;
+}
+table.documento{
+  padding: 20px;
+}
+/*----------------------TERMINAN ESTILOS DOCUMENTO-----------------------------*/
+
+/*----------------------ESTILOS MOVIMIENTO DE CUENTA-----------------------------*/
+.container3{
+    width: 80%;
+    height: 20%;
+    margin: auto;
+    background-color: white;
+    margin-bottom: 20px;
+    border-radius: 15px;
+}
+h1{
+  padding-top: 20px;
+}
+.MovimientoCuenta{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.tablaMovimientoCuenta{
+  width: 80%;
+  height: auto;
+  margin: auto;
+  background-color: white;
+  border-radius: 15px;
+}
+table.movimientoCuenta{
+  padding: 20px;
+}
+.btnMoviGene{
+    background-color: #379f7a;
+    border: none;
+    margin-bottom: 10px;
+    width: 150px;
+    height: 30px;
+    border-radius: 20px;
+    margin-top: 10px;
+    box-shadow: 0px 5px 10px 0px;
+}
+td.saldo{
+  background-color:#cdcfb7;
+}
+/*----------------------ESTILOS MOVIMIENTO GENERAL-----------------------------*/
+.container4{
+    width: 80%;
+    height: 20%;
+    margin: auto;
+    background-color:white;
+    margin-bottom: 20px;
+    border-radius: 15px;
+}
+form.movimientoGeneral{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+h1{
+  padding-bottom: 20px;
+}
+.tablaMovimientoGeneral{
+  width: 80%;
+  height: auto;
+  margin: auto;
+  background-color: white;
+  border-radius: 15px;
+}
+.movimientoGene{
+  padding: 10px;
+}
+.btnMovi{
+    background-color: #379f7a;
+    border: none;
+    margin-bottom: 10px;
+    width: 150px;
+    height: 30px;
+    border-radius: 20px;
+    margin-top: 10px;
+    box-shadow: 0px 5px 10px 0px;
+}
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
