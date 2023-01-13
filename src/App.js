@@ -4,12 +4,12 @@ import Menu from './components/Menu'
 import Cuentas from './components/Cuentas'
 import Documento from './components/Documento'
 import MoviCuenta from './components/MoviCuenta'
-import MoviGene from './components/MoviGene'
 import {useState} from 'react'
 
 function App() {
   const [arrayCuentas, setArrayCuentas] = useState([]); //ARRAY REGISTRO
   const [arrayIngreso, setArrayIngreso] = useState([]); //ARRAY DONDE SE VA A VER TODO
+  const [arrayDocumento, setArrayDocumento] = useState([]); //ARRAY FORMULARIO
 
   return (
     <div className="App">
@@ -33,6 +33,8 @@ function App() {
                 arrayCuentas={arrayCuentas}
                 arrayIngreso={arrayIngreso}
                 setArrayIngreso={setArrayIngreso}
+                arrayDocumento={arrayDocumento}
+                setArrayDocumento={setArrayDocumento}
               />
             }
           />
@@ -40,10 +42,10 @@ function App() {
             path="/MoviCuenta"
             element={<MoviCuenta arrayIngreso={arrayIngreso} />}
           />
-          <Route
+{/*           <Route
             path="/MoviGene"
-            element={<MoviGene arrayIngreso={arrayIngreso} />}
-          />
+            element={<MoviGene arrayIngreso={arrayIngreso} setArrayDocumento={setArrayDocumento}/>}
+          /> */}
         </Routes>
       </BrowserRouter>
     </div>

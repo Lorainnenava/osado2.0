@@ -1,7 +1,10 @@
 /* eslint-disable eqeqeq */
+import { Button } from "@mui/material";
 import React from "react";
 
 export const TablaDocumento = (props) => {
+
+
     return (
         <>
             {/* TABLA FORMULARIO  */}
@@ -18,6 +21,7 @@ export const TablaDocumento = (props) => {
                     <th>DETALLES</th>
                     <th>DEBITO</th>
                     <th>CREDITO</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -32,6 +36,7 @@ export const TablaDocumento = (props) => {
                     <td>{documento.detalles}</td>
                     <td>{documento.debito}</td>
                     <td>{documento.credito}</td>
+                    <td><button onClick={()=>{props.editarDocumento(documento)}}>EDITAR</button></td>
                     </tr>
                 ))}
                 <tr>
@@ -50,11 +55,24 @@ export const TablaDocumento = (props) => {
                     <td className="totales">
                     <b>{props.totalCredito}</b>
                     </td>
+                    <td className="totales"></td>
                 </tr>
                 </tbody>
             </table>
             {props.totalDebito == props.totalCredito && props.totalCredito > 0 ? (
-                <button onClick={props.guardar}>GUARDAR</button>
+                <Button
+                onClick={props.guardar}
+                variant="contained"
+                color="success"
+                sx={{
+                    background: "#379f7a",
+                    borderRadius: "50px",
+                    height: "35px",
+                    bottom: "10px",
+                }}
+                >
+                GUARDAR
+                </Button>
             ) : null}
             </section>
         </>

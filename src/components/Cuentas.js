@@ -1,24 +1,44 @@
 /* eslint-disable eqeqeq */
 import React, {useState, useEffect} from 'react'
-import { TextField } from '@mui/material';
+import { TextField, Alert, Box, Button } from "@mui/material";
+import { TablaBalance} from './tablas/TablaBalance';
 
 export const Cuentas = ({arrayIngreso, arrayCuentas, setArrayCuentas}) => {
     const [arrayBalance, setArrayBalance] = useState([]); //ARRAY BALANCE
     const [ventanaBalance, setVentanaBalance] = useState(false);
     const [balanceCredito, setBalanceCredito] = useState(0); //BALANCE CREDITO
     const [balanceDebito, setBalanceDebito] = useState(0); //BALANCE DEBITO
+    const [alerta, setAlerta] = useState(false);
+    const [confirmacion, setConfirmacion] = useState(false);
 
     /*  ========================FUNCION DE REGISTRO===================================*/
     const registro = (e) => {
         e.preventDefault();
-        setArrayCuentas([
-        ...arrayCuentas,
-        {
-            id: e.target.idfijo.value,
-            nombre: e.target.nombrefijo.value,
-        },
-        ]);
-        e.target.reset();
+        if(e.target.idfijo.value == '' || e.target.nombrefijo.value== ''){
+          setTimeout(() => {
+            setConfirmacion(true);
+          setTimeout(() => {
+              setConfirmacion(false);
+          }, 1000);
+        }, 0);
+        }else{
+          setArrayCuentas([
+          ...arrayCuentas,
+          {
+              id: e.target.idfijo.value,
+              nombre: e.target.nombrefijo.value,
+          },
+          ]);
+          setTimeout(()=>{
+  
+            setAlerta(true)
+            setTimeout(() => {
+            setAlerta(false);
+              
+            },1000 );
+          },0)
+          e.target.reset();
+        }
     };
 
     /*  ========================FUNCION VER BALANCE Y ALMACENA BALANCE===================================*/
@@ -73,85 +93,119 @@ export const Cuentas = ({arrayIngreso, arrayCuentas, setArrayCuentas}) => {
 
     return (
       <>
+        {/*  ========================ALERTA REGISTRO EXITOSO===================================*/}
+        {alerta ? (
+          <Box
+            sx={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "end",
+              position: "absolute",
+              top: "86px",
+              right: "20px",
+            }}
+            spacing={2}
+          >
+            <Alert
+              variant="filled"
+              severity="success"
+              sx={{
+                width: "10%",
+                textAlign: "center",
+                justifyContent: "center",
+              }}
+            >
+              Registro exitoso
+            </Alert>
+          </Box>
+        ) : null}
+
+        {/*  ========================ALERTA FALTAN LOS CAMPOS===================================*/}
+        {confirmacion ? (
+          <Box
+            sx={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "end",
+              position: "absolute",
+              top: "86px",
+              right: "20px",
+            }}
+            spacing={2}
+          >
+            <Alert
+              variant="filled"
+              severity="error"
+              sx={{
+                width: "10%",
+                textAlign: "center",
+                justifyContent: "center",
+              }}
+            >
+              llene todos los campos
+            </Alert>
+          </Box>
+        ) : null}
+
         {/*  ========================FORMULARIO REGISTRO===================================*/}
-        {/*FORMULARIO DEL REGISTRO*/}
         <section className="container1">
           <section className="tituloRegistro">
             <h1>CREACION DE CUENTA</h1>
           </section>
           <form className="registro" onSubmit={registro}>
-            {/*      <label className="labelRegistro">
-                ID CUENTA
-                <input
-                    type="text"
-                    name="idfijo"
-                    placeholder="registra el codigo"
-                ></input>
-                </label> */}
             <TextField
+              className="labelRegistro"
               size="small"
               name="idfijo"
               label="ID CUENTA"
               variant="outlined"
             />
-            <br />
-            <label className="labelRegistro">
-              NOMBRE CUENTA
-              <input
-                type="text"
-                name="nombrefijo"
-                placeholder="Ingresa el nombre"
-              ></input>
-            </label>
-            <button className="btnRegistro" type="submit">
+            <TextField
+              className="labelRegistro"
+              size="small"
+              name="nombrefijo"
+              label="NOMBRE CUENTA"
+              variant="outlined"
+            />
+            <Button
+              type="submit"
+              className="btnDocumento"
+              variant="contained"
+              color="success"
+              sx={{
+                background: "#379f7a",
+                borderRadius: "50px",
+                height: "35px",
+              }}
+            >
               REGISTRAR
-            </button>
+            </Button>
           </form>
           <section className="botones">
-            <button className="btnBalance" onClick={verBalance}>
-              <b>VER BALANCE</b>
-            </button>
+            <Button
+              type="submit"
+              className="btnDocumento"
+              variant="contained"
+              color="success"
+              onClick={verBalance}
+              sx={{
+                background: "#379f7a",
+                borderRadius: "50px",
+                height: "35px",
+                top: "20px",
+                bottom: "20px",
+              }}
+            >
+              VER BALANCE
+            </Button>
           </section>
         </section>
-
-        {/*  ========================INICIA TABLA BALANCE===================================*/}
-        {ventanaBalance ? (
-          <section className="tablaBalance">
-            <h3>BALANCE</h3>
-            <table className="balance">
-              <thead>
-                <tr>
-                  <th>ID CUENTA</th>
-                  <th>NOMBRE CUENTA</th>
-                  <th>DEBITO</th>
-                  <th>CREDITO</th>
-                </tr>
-              </thead>
-              <tbody>
-                {arrayBalance.map((balance, i) => (
-                  <tr key={i}>
-                    <td>{balance.id}</td>
-                    <td>{balance.cuenta}</td>
-                    <td>{balance.debito}</td>
-                    <td>{balance.credito}</td>
-                  </tr>
-                ))}
-                <tr>
-                  <td className="totales"></td>
-                  <td className="totales">
-                    <b>{"Totales: ........"}</b>
-                  </td>
-                  <td className="totales">
-                    <b>{balanceDebito}</b>
-                  </td>
-                  <td className="totales">
-                    <b>{balanceCredito}</b>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </section>
-        ) : null}
+        <TablaBalance
+          ventanaBalance={ventanaBalance}
+          arrayBalance={arrayBalance}
+          balanceDebito={balanceDebito}
+          balanceCredito={balanceCredito}
+        />
       </>
     );
 }

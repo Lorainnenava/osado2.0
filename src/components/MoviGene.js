@@ -1,33 +1,80 @@
+/* eslint-disable eqeqeq */
+import { Box, Alert, Button } from '@mui/material';
 import React,{useState} from 'react'
+import { TablaMoviGene } from './tablas/TablaMoviGene';
 
-export const MoviGene = ({arrayIngreso}) => {
+export const MoviGene = ({arrayIngreso, setArrayDocumento}) => {
 
     const [movimientoGeneral, setMovimientoGeneral] = useState(false); //VENTANA MOVIMIENTO GENERAL
     const [arrayMovimientoGeneral, setArrayMovimientoGeneral] = useState([]); //ARRAY MOVIMIENTO GENERAL
+    const[alerta, setAlerta] = useState(false); //
 
     /*  ========================FUNCION MOVIMIENTO GENERAL===================================*/
     const verMovimientoGeneral = (e) => {
         e.preventDefault();
-        let arrayTemporal = arrayIngreso.filter(
-        (item) =>
-            item.fecha >= e.target.fechaInicialMovimiento.value &&
-            item.fecha <= e.target.fechaFinalMovimiento.value
-        );
-        setArrayMovimientoGeneral(arrayTemporal);
-        if (movimientoGeneral) {
-        setMovimientoGeneral(false);
-        } else {
-        setMovimientoGeneral(true);
+        if(e.target.fechaInicialMovimiento.value == '' || e.target.fechaFinalMovimiento.value == '' ){
+            setTimeout(() => {
+                setAlerta(true);
+            setTimeout(() => {
+                setAlerta(false);
+            }, 1000);
+            }, 0);
+        }else{
+            let arrayTemporal = arrayIngreso.filter(
+            (item) =>
+                item.fecha >= e.target.fechaInicialMovimiento.value &&
+                item.fecha <= e.target.fechaFinalMovimiento.value
+            );
+            setArrayMovimientoGeneral(arrayTemporal);
+            if (movimientoGeneral) {
+            setMovimientoGeneral(false);
+            } else {
+            setMovimientoGeneral(true);
+            }
         }
     };
 
+    const editar = (general) => {
+        let arrayTemporal = arrayMovimientoGeneral.filter(
+            (item) => item.tipoDoc == general.tipoDoc && item.doc == general.doc);
+        setArrayDocumento(arrayTemporal)
+    };
+
+
     return (
         <>
+            {/*  ========================ALERTA LLENAR LOS CAMPOS===================================*/}
+            {alerta ? (
+            <Box
+                sx={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "end",
+                position: "absolute",
+                top: "75px",
+                right: "20px",
+                }}
+                spacing={2}
+            >
+                <Alert
+                variant="filled"
+                severity="error"
+                sx={{
+                    width: "10%",
+                    textAlign: "center",
+                    justifyContent: "center",
+                }}
+                >
+                Ingrese algun valor
+                </Alert>
+            </Box>
+            ) : null}
+
             {/*  ========================FORMULARIO MOVIMIENTO GENERAL===================================*/}
-            <section className='container4'>
-                <section className='titulomovi'>
+            <section className="container4">
+            <section className="titulomovi">
                 <h1>MOVIMIENTO</h1>
-                </section>
+            </section>
             <form className="movimientoGeneral" onSubmit={verMovimientoGeneral}>
                 <label>
                 FECHA DE INICIO
@@ -37,44 +84,26 @@ export const MoviGene = ({arrayIngreso}) => {
                 FECHA FINAL
                 <input type="date" name="fechaFinalMovimiento"></input>
                 </label>
-                <button className="btnMovi" value={movimientoGeneral}>
-                VER MOVIMIENTO
-                </button>
+                <Button
+                type="submit"
+                className="btnDocumento"
+                variant="contained"
+                color="success"
+                value={movimientoGeneral}
+                sx={{
+                    background: "#379f7a",
+                    borderRadius: "50px",
+                    height: "40px",
+                }}
+                >
+                INGRESAR
+                </Button>
             </form>
             </section>
-            {/*  ========================INICIA TABLA MOVIMIENTO GENERAL===================================*/}
-            {movimientoGeneral ? (
-            <section className="tablaMovimientoGeneral">
-                <table className="movimientoGene">
-                <thead>
-                    <tr>
-                    <th>DOC</th>
-                    <th>TIPO DOC</th>
-                    <th>FECHA</th>
-                    <th>ID CUENTA</th>
-                    <th>CEDULA</th>
-                    <th>CUENTA</th>
-                    <th>DETALLES</th>
-                    <th>DEBITO</th>
-                    <th>CREDITO</th>
-                    </tr>
-                </thead>
-                {arrayMovimientoGeneral.map((general, i) => (
-                    <tr key={i}>
-                    <td>{general.doc} </td>
-                    <td>{general.tipoDoc} </td>
-                    <td>{general.fecha} </td>
-                    <td>{general.id} </td>
-                    <td>{general.cedula}</td>
-                    <td>{general.cuenta} </td>
-                    <td>{general.detalles} </td>
-                    <td>{general.debito} </td>
-                    <td>{general.credito} </td>
-                    </tr>
-                ))}
-                </table>
-            </section>
-            ) : null}
+            <TablaMoviGene
+            arrayMovimientoGeneral={arrayMovimientoGeneral}
+            movimientoGeneral={movimientoGeneral} editar={editar}
+            />
         </>
     );
 }
